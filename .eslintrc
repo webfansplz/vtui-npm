@@ -1,0 +1,9 @@
+{
+  "extends": "@antfu",
+  "rules":{
+    "no-console":0,
+    "@typescript-eslint/ban-ts-comment":0,
+    "vue/one-component-per-file":0,
+    "vue/attribute-hyphenation": 0
+  }
+}
