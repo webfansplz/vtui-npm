@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@vue/runtime-core": "^3.2.41",
+    "algoliasearch": "^4.14.2",
+    "pinia": "^2.0.23",
     "vue": "^3.2.41",
     "vue-termui": "^0.0.13"
   },

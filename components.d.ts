@@ -7,8 +7,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Box: typeof import('vue-termui')['TuiBox']
+    Deps: typeof import('./src/components/Search/Deps.vue')['default']
     Div: typeof import('vue-termui')['TuiBox']
-    Header: typeof import('./src/components/Header.vue')['default']
+    Header: typeof import('./src/components/Search/Header.vue')['default']
+    Input: typeof import('./src/components/Search/Input.vue')['default']
+    Package: typeof import('./src/components/Search/Package.vue')['default']
+    Packages: typeof import('./src/components/Search/Packages.vue')['default']
     Span: typeof import('vue-termui')['TuiText']
   }
 }
