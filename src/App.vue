@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Header from '@/components/Search/Header.vue'
-import Input from '@/components/Search/Input.vue'
+import InputBox from '@/components/Search/InputBox.vue'
 import Package from '@/components/Search/Package.vue'
 import Deps from '@/components/Search/Deps.vue'
 </script>
@@ -12,10 +12,8 @@ import Deps from '@/components/Search/Deps.vue'
     flexDirection="column"
   >
     <Header />
-    <Input />
+    <InputBox />
     <Package />
-    <Div>
-      <Deps />
-    </Div>
+    <Deps />
   </Div>
 </template>

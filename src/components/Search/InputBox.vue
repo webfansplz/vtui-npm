@@ -1,15 +1,14 @@
 <script lang="ts" setup>
+import { Input } from './Input'
 import { useSearchStore } from '@/store'
 const store = useSearchStore()
-store.search('vue')
 </script>
 
 <template>
   <Div
     width="100"
+    :paddingX="4"
   >
-    <Span color="yellow">
-      Input
-    </Span>
+    <Input v-model="store.keyword" placeholder="Typing keyword to search package" />
   </Div>
 </template>

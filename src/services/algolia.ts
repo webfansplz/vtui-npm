@@ -13,6 +13,8 @@ export interface PackageInfo {
   versions: string[]
   author: string
   downloads: string
+  versionIndex: number
+  activeVersion: string
 }
 
 /* Config */
