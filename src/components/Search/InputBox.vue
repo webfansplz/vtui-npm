@@ -6,7 +6,7 @@ const store = useSearchStore()
 
 <template>
   <Div
-    width="100"
+    width="50"
     :paddingX="4"
   >
     <Input v-model="store.keyword" placeholder="Typing keyword to search package" />

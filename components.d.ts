@@ -10,11 +10,13 @@ declare module '@vue/runtime-core' {
     Box: typeof import('vue-termui')['TuiBox']
     Deps: typeof import('./src/components/Search/Deps.vue')['default']
     Div: typeof import('vue-termui')['TuiBox']
+    Download: typeof import('./src/components/Search/Download.vue')['default']
     Header: typeof import('./src/components/Search/Header.vue')['default']
     Input: typeof import('./src/components/Search/Input.vue')['default']
     InputBox: typeof import('./src/components/Search/InputBox.vue')['default']
     Package: typeof import('./src/components/Search/Package.vue')['default']
     Packages: typeof import('./src/components/Search/Packages.vue')['default']
+    Process: typeof import('./src/components/Search/Process.vue')['default']
     Span: typeof import('vue-termui')['TuiText']
   }
 }

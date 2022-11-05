@@ -3,6 +3,7 @@ import Header from '@/components/Search/Header.vue'
 import InputBox from '@/components/Search/InputBox.vue'
 import Package from '@/components/Search/Package.vue'
 import Deps from '@/components/Search/Deps.vue'
+import Download from '@/components/Search/Download.vue'
 </script>
 
 <template>
@@ -15,5 +16,6 @@ import Deps from '@/components/Search/Deps.vue'
     <InputBox />
     <Package />
     <Deps />
+    <Download />
   </Div>
 </template>

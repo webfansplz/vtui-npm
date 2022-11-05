@@ -4,7 +4,7 @@ import type { KeyDataEvent } from 'vue-termui'
 import { TuiText, onInputData } from 'vue-termui'
 import chalk from 'chalk'
 
-const SKIP_EVENT_KEY = ['ArrowUp', 'ArrowDown', 'Ctrl', 'Tab', 'Shift', ' ', 'ArrowLeft', 'ArrowRight']
+const SKIP_EVENT_KEY = ['ArrowUp', 'ArrowDown', 'Ctrl', 'Tab', 'Shift', ' ', 'ArrowLeft', 'ArrowRight', 'Enter']
 const PWD_FIGURE = '*'
 
 export const Input = defineComponent({

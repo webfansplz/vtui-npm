@@ -27,15 +27,17 @@
     "build": "vtui build"
   },
   "dependencies": {
+    "@antfu/ni": "^0.18.3",
     "@vue/runtime-core": "^3.2.41",
     "algoliasearch": "^4.14.2",
+    "execa": "^6.1.0",
     "pinia": "^2.0.23",
     "vue": "^3.2.41",
     "vue-termui": "^0.0.13"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.27.0",
-    "@types/node": "^18.11.8",
+    "@types/node": "^18.11.9",
     "@vitejs/plugin-vue": "3.2.0",
     "@vue-termui/cli": "^0.0.16",
     "eslint": "^8.26.0",

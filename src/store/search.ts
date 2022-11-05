@@ -63,5 +63,12 @@ export const useDepsStore = defineStore('deps', () => {
     else
       return deps.value.some(item => item.name === name)
   }
-  return { deps, devDeps, add, remove, has }
+  const normalize = (deps: DepsInfo[]) => {
+    return deps.map(item => `${item.name}@${item.version}`)
+  }
+  const reset = () => {
+    deps.value = []
+    devDeps.value = []
+  }
+  return { deps, devDeps, add, remove, has, normalize, reset }
 })
