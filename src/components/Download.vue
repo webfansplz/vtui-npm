@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { useDepsStore } from '@/store'
 import { installPackage } from '@/services/ni'
+const INITIAL_PROGRESS = 20
 const depsStore = useDepsStore()
 const deps = computed(() => depsStore.normalize(depsStore.deps))
 const devDeps = computed(() => depsStore.normalize(depsStore.devDeps))
 // 0: Not started 1: In progress 2: Finished
 const downloadStatus = ref(0)
-const progress = ref(20)
+const progress = ref(INITIAL_PROGRESS)
 
 async function download() {
   if ((!deps.value.length && !devDeps.value.length) || downloadStatus.value === 1)
@@ -28,6 +29,7 @@ async function download() {
   progress.value = 100
   let t = setTimeout(() => {
     downloadStatus.value = 2
+    progress.value = INITIAL_PROGRESS
     t = setTimeout(() => {
       downloadStatus.value = 0
       clearTimeout(t)
@@ -51,7 +53,7 @@ onKeyData('Enter', download)
       <Span>
         Downloading:
       </Span>
-      <ProgressBar :value="progress" :width="60" />
+      <ProgressBar :value="progress" :width="60" color="#42d392" />
     </Div>
     <Div v-else-if="downloadStatus === 2">
       <Span>
