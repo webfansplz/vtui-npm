@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import Header from '@/components/Search/Header.vue'
-import InputBox from '@/components/Search/InputBox.vue'
-import Package from '@/components/Search/Package.vue'
-import Deps from '@/components/Search/Deps.vue'
-import Download from '@/components/Search/Download.vue'
+import Header from '@/components/Header.vue'
+import InputBox from '@/components/InputBox.vue'
+import Package from '@/components/Package.vue'
+import Deps from '@/components/Deps.vue'
+import Download from '@/components/Download.vue'
 </script>
 
 <template>

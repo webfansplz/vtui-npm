@@ -7,7 +7,7 @@
     justifyContent="center"
   >
     <Span color="yellow">
-      VTUI NPM Search
+      VTUI NPM
     </Span>
   </Div>
 </template>
