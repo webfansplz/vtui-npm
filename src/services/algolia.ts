@@ -48,7 +48,7 @@ export const search = async (
     ],
     page,
     hitsPerPage: 10,
-  }) as unknown as { hits: PackageInfo[] }
+  }) as unknown as { hits: PackageInfo[]; query: string }
 
   return res
 }

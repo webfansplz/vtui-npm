@@ -24,21 +24,21 @@ export const useSearchStore = defineStore('search', () => {
         versions: [...new Set([item.version, ...normalizedVersions])],
         versionIndex: 0,
         activeVersion: item.version,
-        repoLink: item.repository.url,
-        authorLink: item.owner.link,
+        repoLink: item.repository?.url,
+        authorLink: item.owner?.link,
       }
     })
     packages.value = page.value === 0 ? value : [...packages.value, ...value]
   }
 
-  async function search(keyword: string, p = 0) {
+  async function search(k: string, p = 0) {
     page.value = p
-    if (keyword === '') {
+    if (k === '') {
       packages.value = []
       return
     }
-    const { hits } = await algoliaSearch(keyword, p)
-    normalizePackages(hits)
+    const { query, hits } = await algoliaSearch(k, p)
+    query === keyword.value && normalizePackages(hits)
   }
 
   watch(keyword, () => {
