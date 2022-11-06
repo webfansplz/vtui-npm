@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     InputBox: typeof import('./src/components/Search/InputBox.vue')['default']
     Link: typeof import('vue-termui')['TuiLink']
     Package: typeof import('./src/components/Search/Package.vue')['default']
+    Progressbar: typeof import('vue-termui')['TuiProgressBar']
     Span: typeof import('vue-termui')['TuiText']
   }
 }
