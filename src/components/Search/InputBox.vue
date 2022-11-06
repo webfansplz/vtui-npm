@@ -9,6 +9,6 @@ const store = useSearchStore()
     width="50"
     :paddingX="4"
   >
-    <Input v-model="store.keyword" placeholder="Typing keyword to search package" />
+    <Input v-model="store.keyword" placeholder="🔍 Search packages" />
   </Div>
 </template>

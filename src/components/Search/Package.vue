@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { KeyDataEvent } from 'vue-termui'
+import Guide from './Guide.vue'
 import { useDepsStore, useSearchStore } from '@/store'
 const MAX = 10
 const searchStore = useSearchStore()
@@ -74,6 +75,7 @@ const columns = [
     width: 42,
     name: 'Package Name',
     id: 'name',
+    link: 'repoLink',
   },
   {
     width: 20,
@@ -84,6 +86,7 @@ const columns = [
     width: 20,
     name: 'Author',
     id: 'author',
+    link: 'authorLink',
   },
   {
     width: 15,
@@ -99,40 +102,65 @@ const columns = [
     borderStyle="single"
     flexDirection="column"
   >
-    <!-- Header -->
-    <Div>
-      <Div :width="3" />
-      <Div
-        v-for="(item, index) in columns"
-        :key="index"
-        :width="item.width"
-        justifyContent="flex-start"
-        :paddingLeft="item.id === 'activeVersion' ? 3 : 0"
-      >
-        <Span color="green">
-          {{ item.name }}
-        </Span>
-      </Div>
-    </Div>
-    <!-- Content -->
-    <Div v-for="(item, index) in normalizedPackages" :key="index">
-      <Div :width="3" justifyContent="flex-end">
-        <Span v-if="columnIndex === 0 && normalizedCursorOffset === index" color="blue">❯</Span>
-      </Div>
-      <Div
-        v-for="(column, childIndex) in columns"
-        :key="childIndex"
-        :width="column.width"
-        :paddingRight="2"
-        justifyContent="flex-start"
-      >
-        <Div v-if="column.id === 'activeVersion'" :width="3" justifyContent="flex-end" :paddingRight="1">
-          <Span v-if="columnIndex === 1 && normalizedCursorOffset === index && column.id === 'activeVersion'" color="blue">❯</Span>
+    <template
+      v-if="normalizedPackages.length"
+    >
+      <!-- Header -->
+      <Div>
+        <Div :width="3" />
+        <Div
+          v-for="(item, index) in columns"
+          :key="index"
+          :width="item.width"
+          justifyContent="flex-start"
+          :paddingLeft="item.id === 'activeVersion' ? 3 : 0"
+        >
+          <Span color="green">
+            {{ item.name }}
+          </Span>
         </Div>
-        <Span color="white">
-          {{ item[column.id] }}
-        </Span>
       </Div>
-    </Div>
+
+      <!-- Content -->
+      <Div
+        v-for="(item, index) in normalizedPackages"
+        :key="index"
+      >
+        <Div :width="3" justifyContent="flex-end">
+          <!-- Package Select Cursor -->
+          <template v-if="columnIndex === 0">
+            <Span v-if="normalizedCursorOffset === index" color="blue">❯</Span>
+            <Span v-else-if="depsStore.has(item.name)" color="#42d392">◉</Span>
+            <Span v-else-if="depsStore.has(item.name, true)" color="#647eff">◉</Span>
+          </template>
+        </Div>
+        <Div
+          v-for="(column, childIndex) in columns"
+          :key="childIndex"
+          :width="column.width"
+          :paddingRight="2"
+          justifyContent="flex-start"
+        >
+          <!-- Version Cursor -->
+          <Div
+            v-if="column.id === 'activeVersion'"
+            :width="3"
+            justifyContent="flex-end"
+            :paddingRight="1"
+          >
+            <Span
+              v-if="columnIndex === 1
+                && normalizedCursorOffset === index
+                && column.id === 'activeVersion'"
+              color="blue"
+            >❯</Span>
+          </Div>
+          <Span color="white">
+            {{ item[column.id] }}
+          </Span>
+        </Div>
+      </Div>
+    </template>
+    <Guide v-else />
   </Div>
 </template>

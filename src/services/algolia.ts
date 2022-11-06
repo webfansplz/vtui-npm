@@ -8,13 +8,17 @@ export interface PackageInfo {
     name: string
     link: string
   }
-  repository: string
+  repository: {
+    url: string
+  }
   humanDownloadsLast30Days: string
   versions: string[]
   author: string
   downloads: string
   versionIndex: number
   activeVersion: string
+  repoLink: string
+  authorLink: string
 }
 
 /* Config */
