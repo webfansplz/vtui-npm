@@ -28,8 +28,6 @@
   },
   "dependencies": {
     "@antfu/ni": "^0.18.3",
-    "@pnpm/cli-utils": "^1.0.4",
-    "@pnpm/logger": "^5.0.0",
     "@vue/runtime-core": "^3.2.41",
     "algoliasearch": "^4.14.2",
     "execa": "^6.1.0",
@@ -39,7 +37,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.29.3",
-    "@pnpm/types": "^8.8.0",
     "@types/node": "^18.11.9",
     "@vitejs/plugin-vue": "3.2.0",
     "@vue-termui/cli": "^0.0.17",
