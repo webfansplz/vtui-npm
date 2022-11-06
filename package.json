@@ -20,7 +20,7 @@
     "vue-npm"
   ],
   "bin": {
-    "vtui-npm": "./vtui-npm.mjs"
+    "vnpm": "./vtui-npm.mjs"
   },
   "scripts": {
     "dev": "vtui dev",
