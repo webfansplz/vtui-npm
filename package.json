@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "packageManager": "pnpm@7.9.0",
-  "description": "Terminal UI for JavaScript Package Manager",
+  "description": "Interactive CLI for npm - search and install JavaScript package.",
   "author": "webfansplz",
   "license": "MIT",
   "homepage": "https://github.com/webfansplz/vtui-npm#readme",
