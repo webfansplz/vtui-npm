@@ -17,4 +17,14 @@ export default defineConfig({
     VueTermui(),
   ],
 
+  build: {
+    rollupOptions: {
+      external: [
+        '@antfu/ni',
+        'execa',
+        '@pnpm/cli-utils'
+      ],
+    },
+  },
+
 })

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ProgressBar } from './ProgressBar'
 import { useDepsStore } from '@/store'
-import { installPackage } from '@/services/install'
+import { installPackage } from '@/services/ni'
 const depsStore = useDepsStore()
 const deps = computed(() => depsStore.normalize(depsStore.deps))
 const devDeps = computed(() => depsStore.normalize(depsStore.devDeps))

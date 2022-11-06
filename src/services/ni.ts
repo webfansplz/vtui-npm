@@ -1,4 +1,4 @@
-import { detect, parseNi } from '@antfu/ni'
+import { detect, parseNi, parseNr } from '@antfu/ni'
 import { execaCommand } from 'execa'
 
 export interface InstallPackageOptions {
@@ -28,4 +28,10 @@ export async function installPackage(packages: string[], options: InstallPackage
   const command = await parseNi(agent!, [...(isDev ? ['-D'] : []), ...packages])
 
   await execaCommand(command!, { stdio: 'pipe', encoding: 'utf-8', cwd })
+}
+
+export async function execScript(script: string) {
+  const agent = await detect({})
+  const command = await parseNr(agent!, [script])
+  await execaCommand(command!, { stdio: 'inherit', encoding: 'utf-8' })
 }
