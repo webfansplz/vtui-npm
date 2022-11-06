@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ProgressBar } from './ProgressBar'
 import { useDepsStore } from '@/store'
 import { installPackage } from '@/services/ni'
 const depsStore = useDepsStore()
