@@ -27,6 +27,7 @@
     "build": "vtui build"
   },
   "dependencies": {
+    "@algolia/requester-fetch": "^4.14.2",
     "@antfu/ni": "^0.18.3",
     "@vue/runtime-core": "^3.2.41",
     "algoliasearch": "^4.14.2",

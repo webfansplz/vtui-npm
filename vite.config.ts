@@ -22,7 +22,6 @@ export default defineConfig({
       external: [
         '@antfu/ni',
         'execa',
-        '@pnpm/cli-utils'
       ],
     },
   },

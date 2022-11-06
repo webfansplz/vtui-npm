@@ -1,4 +1,5 @@
 import algoliasearch from 'algoliasearch'
+import { createFetchRequester } from '@algolia/requester-fetch'
 
 export interface PackageInfo {
   name: string
@@ -28,7 +29,9 @@ const algolia = {
   indexName: 'npm-search',
 }
 
-const client = algoliasearch(algolia.appId, algolia.apiKey).initIndex(
+const client = algoliasearch(algolia.appId, algolia.apiKey, {
+  requester: createFetchRequester(),
+}).initIndex(
   algolia.indexName,
 )
 
