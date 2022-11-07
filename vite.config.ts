@@ -11,6 +11,7 @@ export default defineConfig({
     alias: [
       { find: '@', replacement: resolve(__dirname, 'src') },
     ],
+    mainFields: process.env.NODE_ENV === 'production' ? ['module', 'main'] : ['main', 'module'],
   },
 
   plugins: [

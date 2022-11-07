@@ -11,6 +11,11 @@
 Interactive CLI for npm - search and install JavaScript package. Powered by <a href="https://github.com/vue-terminal/vue-termui">vue-termui</a>.
 </p>
 
+## 🔥 Features
+
+- 🔍 **Powerful Search:** Search all the packages from npm and Yarn.
+- 👼 **User Friendly:** Search and install packages with a simple keystroke.
+- 📦 **Powerful Installer:** Support npm · yarn · pnpm · bun.
 
 ## 📦 Install
 

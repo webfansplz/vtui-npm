@@ -87,7 +87,11 @@ export const Input = defineComponent({
         updateCursorOffset(1)
       }
       // Delete Content
-      else if (eventKey === 'Backspace' || eventKey === 'Delete') {
+      else if (
+        eventKey === 'Backspace'
+        || eventKey === 'Delete'
+        || (eventKey === 'H' && data !== 'H') // Windows compatible
+      ) {
         if (cursorOffset.value > 0) {
           updateValue(
             props.modelValue.slice(0, cursorOffset.value - 1)

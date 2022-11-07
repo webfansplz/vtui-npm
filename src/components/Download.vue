@@ -21,10 +21,15 @@ async function download() {
     else
       clearInterval(timer)
   }, speed)
-  await Promise.all([installPackage(deps.value), installPackage(devDeps.value, { isDev: true })]).catch((e) => {
+  try {
+    await installPackage(deps.value)
+    await installPackage(devDeps.value, { isDev: true })
+  }
+  catch (e) {
     console.log(e)
     process.exit(1)
-  })
+  }
+
   depsStore.reset()
   progress.value = 100
   let t = setTimeout(() => {
