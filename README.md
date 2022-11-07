@@ -15,7 +15,7 @@ Interactive CLI for npm - search and install JavaScript package. Powered by <a h
 ## 📺 Preview
 
 <p align='center'>
-<video src='./vtui-npm.mov'/>
+ <img src="./vtui-npm.gif" alt="VTui NPM">
 </p>
 
 ## 🔥 Features
