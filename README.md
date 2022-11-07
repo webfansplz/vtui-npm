@@ -20,7 +20,7 @@ Interactive CLI for npm - search and install JavaScript package. Powered by <a h
 ## 📦 Install
 
 ```sh
-npm install vtui-npm -g
+npm install vtui-npm
 ```
 
 ## 🎮 Usage
