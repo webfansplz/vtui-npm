@@ -37,6 +37,13 @@ Open the terminal and then typing `vnpm`.
 ```sh
 vnpm
 ```
+Search sources can be switched between `NPM` and `Algolia`
+```sh
+vnpm -n | vnpm --npm
+vnpm -al | vnpm --algolia
+```
+
+
 
 ## 💗 Credits
 
