@@ -8,7 +8,6 @@ import Download from '@/components/Download.vue'
 const { changeSource } = useSearchStore()
 
 // change search source
-changeSource('NPM')
 if (process.argv.includes('-n') || process.argv.includes('--npm'))
   changeSource('NPM')
 else if (process.argv.includes('-al') || process.argv.includes('--algolia'))
