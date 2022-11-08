@@ -1,57 +1,59 @@
 import { $fetch } from 'ohmyfetch'
 
-interface Score {
-  final: number
-  detail: Detail
-}
-
-interface Detail {
-  quality: number
-  popularity: number
-  maintenance: number
-}
-interface Author {
-  name?: string
-  email?: string
-  url?: string
-}
-interface Package {
+interface PackageInfo {
   name: string
   version: string
   description: string
   keywords: string[]
   date: string
-  author?: Author
-  links?: Links
-  publisher?: Publisher
-  maintainers?: Publisher[]
-}
-
-interface Publisher {
-  username: string
-  email: string
-}
-
-interface Links {
-  npm?: string
-  homepage?: string
-  repository?: string
-  bugs?: string
+  author?: {
+    name?: string
+    email?: string
+    url?: string
+  }
+  links?: {
+    npm?: string
+    homepage?: string
+    repository?: string
+    bugs?: string
+  }
+  publisher?: {
+    username: string
+    email: string
+  }
+  maintainers?: {
+    username: string
+    email: string
+  }[]
 }
 
 export interface NpmPackageInfo {
-  package: Package
-  score: Score
+  package: PackageInfo
+  score: {
+    final: number
+    detail: {
+      quality: number
+      popularity: number
+      maintenance: number
+    }
+  }
   searchScore: number
 }
+
+let controller: AbortController | null = null
 
 export const search = async (
   query: string,
   page = 10,
 ) => {
-  const { objects, count } = await $fetch(`http://registry.npmjs.com/-/v1/search?text=${query}&from=${page}`)
-  if (count <= 0)
-    return { query, data: [] }
+  controller?.abort()
+  controller = new AbortController()
+  const signal = controller.signal
+  const res = await $fetch(`http://registry.npmjs.com/-/v1/search?text=${query}&from=${page}`, { signal }).catch((e) => {
+    return { count: 0 }
+  })
+  if (res.count <= 0)
+    return { query, hits: [] }
 
-  return { query, data: objects }
+  return { query, hits: res.objects }
 }

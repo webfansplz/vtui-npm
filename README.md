@@ -38,11 +38,9 @@ Open the terminal and then typing `vnpm`.
 vnpm
 ```
 
-Search sources can be switched between `NPM` and `Algolia`
-
 ```sh
+# Switch to npm registry for search (algolia by default),we recommend using the algolia search.
 vnpm -n | vnpm --npm
-vnpm -al | vnpm --algolia
 ```
 
 
