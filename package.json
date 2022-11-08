@@ -1,7 +1,7 @@
 {
   "name": "vtui-npm",
   "type": "module",
-  "version": "0.0.1-beta.15",
+  "version": "0.0.1-beta.21",
   "packageManager": "pnpm@7.9.0",
   "description": "Interactive CLI for npm - search and install JavaScript package.",
   "author": "webfansplz",
@@ -28,6 +28,8 @@
   "scripts": {
     "dev": "vtui dev",
     "build": "vtui build",
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0 --cache",
+    "lint:fix": "pnpm run lint --fix",
     "release": "pnpm run build && npm publish"
   },
   "dependencies": {

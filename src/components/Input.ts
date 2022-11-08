@@ -5,7 +5,6 @@ import { TuiText, onInputData } from 'vue-termui'
 import chalk from 'chalk'
 
 const SKIP_EVENT_KEY = ['ArrowUp', 'ArrowDown', 'Ctrl', 'Tab', 'Shift', ' ', 'ArrowLeft', 'ArrowRight', 'Enter']
-const PWD_FIGURE = '*'
 
 export const Input = defineComponent({
   props: {
@@ -25,48 +24,22 @@ export const Input = defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const active = ref(true)
-    const cursorOffset = ref(props.modelValue.length)
     const content = computed(() => {
       if (active.value) {
         if (props.modelValue) {
-          if (
+          return (
             props.modelValue
-            && props.modelValue.length <= cursorOffset.value
-          ) {
-            return (
-              (props.type === 'text'
-                ? props.modelValue
-                : PWD_FIGURE.repeat(props.modelValue.length))
-              + chalk.inverse(' ')
-            )
-          }
-
-          const l = props.modelValue.slice(0, cursorOffset.value)
-          const m = chalk.inverse(props.modelValue[cursorOffset.value])
-          const r = props.modelValue.slice(cursorOffset.value + 1)
-
-          return props.type === 'text'
-            ? l + m + r
-            : PWD_FIGURE.repeat(l.length)
-            + chalk.inverse(PWD_FIGURE)
-            + PWD_FIGURE.repeat(r.length)
+            + chalk.inverse(' ')
+          )
         }
         else {
           return props.placeholder ? '' : chalk.inverse(' ')
         }
       }
       else {
-        const value = props.modelValue
-        return props.type === 'text' ? value : PWD_FIGURE.repeat(value.length)
+        return props.modelValue
       }
     })
-
-    function updateCursorOffset(offset: number) {
-      cursorOffset.value = Math.max(
-        0,
-        Math.min(cursorOffset.value + offset, props.modelValue.length + 1),
-      )
-    }
 
     function updateValue(value: string) {
       emit('update:modelValue', value)
@@ -79,37 +52,22 @@ export const Input = defineComponent({
       if (SKIP_EVENT_KEY.includes(eventKey) || !eventKey)
         return
 
-      // Move cursor
-      if (eventKey === 'ArrowLeft') {
-        updateCursorOffset(-1)
-      }
-      else if (eventKey === 'ArrowRight') {
-        updateCursorOffset(1)
-      }
       // Delete Content
-      else if (
+      if (
         eventKey === 'Backspace'
         || eventKey === 'Delete'
         || (eventKey === 'H' && data !== 'H') // Windows compatible
       ) {
-        if (cursorOffset.value > 0) {
-          updateValue(
-            props.modelValue.slice(0, cursorOffset.value - 1)
-            + props.modelValue.slice(cursorOffset.value),
-          )
-          updateCursorOffset(-1)
-        }
+        props.modelValue && updateValue(
+          props.modelValue.slice(0, props.modelValue.length - 1),
+        )
       }
       // Typing Content
       else {
         updateValue(
-          props.modelValue.slice(0, cursorOffset.value)
-          + data
-          + props.modelValue.slice(cursorOffset.value),
+          props.modelValue
+          + data,
         )
-        updateCursorOffset(1)
-        if (cursorOffset.value === props.modelValue.length)
-          updateCursorOffset(1)
       }
     })
 

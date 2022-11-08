@@ -1,6 +1,9 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import VueTermui from 'vite-plugin-vue-termui'
+import pkg from './package.json'
+
+const deps = Object.keys(pkg.dependencies)
 
 export default defineConfig({
   define: {
@@ -20,10 +23,7 @@ export default defineConfig({
 
   build: {
     rollupOptions: {
-      external: [
-        '@antfu/ni',
-        'execa',
-      ],
+      external: deps,
     },
   },
 
