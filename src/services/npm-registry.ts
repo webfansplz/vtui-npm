@@ -1,11 +1,5 @@
 import { $fetch } from 'ohmyfetch'
 
-interface Package {
-  package: Package
-  score: Score
-  searchScore: number
-}
-
 interface Score {
   final: number
   detail: Detail
@@ -28,9 +22,9 @@ interface Package {
   keywords: string[]
   date: string
   author?: Author
-  links: Links
-  publisher: Publisher
-  maintainers: Publisher[]
+  links?: Links
+  publisher?: Publisher
+  maintainers?: Publisher[]
 }
 
 interface Publisher {
@@ -45,17 +39,17 @@ interface Links {
   bugs?: string
 }
 
-export interface PackageInfo {
-  objects: Package[]
-  total: number
-  time: string
+export interface NpmPackageInfo {
+  package: Package
+  score: Score
+  searchScore: number
 }
 
 export const search = async (
   query: string,
   page = 10,
 ) => {
-  const { objects, count } = await $fetch(`http://registry.npmjs.com/-/v1/search?text=${query}&form=${page}`)
+  const { objects, count } = await $fetch(`http://registry.npmjs.com/-/v1/search?text=${query}&from=${page}`)
   if (count <= 0)
     return { query, data: [] }
 

@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { search as algoliaSearch } from '@/services/algolia'
 import { search as npmSearch } from '@/services/npm-registry'
 import type { PackageInfo } from '@/services/algolia'
+import type { NpmPackageInfo } from '@/services/npm-registry'
 
 interface DepsInfo {
   name: string
@@ -33,6 +34,31 @@ export const useSearchStore = defineStore('search', () => {
     packages.value = page.value === 0 ? value : [...packages.value, ...value]
   }
 
+  function normalizeNpmPackages(data: NpmPackageInfo[]) {
+    const value = data.map(({ package: item }) => {
+      return {
+        ...item,
+        downloads: '',
+        humanDownloadsLast30Days: '',
+        descriptions: item.description,
+        author: item.author?.name,
+        versions: [item.version],
+        versionIndex: 0,
+        activeVersion: item.version,
+        repoLink: item.links?.repository,
+        authorLink: item.author?.url,
+        owner: {
+          link: item.author?.url,
+          name: item.author?.name,
+        },
+        repository: {
+          url: item.links?.repository,
+        },
+      }
+    }) as PackageInfo[]
+    packages.value = page.value === 0 ? value : [...packages.value, ...value]
+  }
+
   async function search(k: string, p = 0) {
     page.value = p
     if (k === '') {
@@ -45,15 +71,19 @@ export const useSearchStore = defineStore('search', () => {
     }
     else if (packSource.value === 'NPM') {
       const { query, data } = await npmSearch(k, p)
-      query === keyword.value && normalizePackages(data)
+      query === keyword.value && normalizeNpmPackages(data)
     }
+  }
+
+  function changeSource(source: 'Algolia' | 'NPM') {
+    packSource.value = source
   }
 
   watch(keyword, () => {
     search(keyword.value)
   })
 
-  return { keyword, packages, page, search, packSource }
+  return { keyword, packages, page, search, packSource, changeSource }
 })
 
 export const useDepsStore = defineStore('deps', () => {

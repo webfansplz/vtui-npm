@@ -35,7 +35,13 @@ async function togglePackage(event: KeyDataEvent) {
   const value = cursorOffset.value + offset
 
   const shouldLoadMore = value >= packages.value.length && event.key === 'ArrowDown'
-  shouldLoadMore && await searchStore.search(keyword.value, page.value + 1)
+
+  shouldLoadMore && await searchStore.search(
+    keyword.value,
+    searchStore.packSource === 'Algolia'
+      ? page.value + 1
+      : page.value + 10,
+  )
 
   cursorOffset.value = Math.max(0, Math.min(packages.value.length - 1, value))
 }
