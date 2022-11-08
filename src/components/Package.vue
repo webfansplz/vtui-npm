@@ -35,12 +35,22 @@ async function togglePackage(event: KeyDataEvent) {
   const value = cursorOffset.value + offset
 
   const shouldLoadMore = value >= packages.value.length && event.key === 'ArrowDown'
-  shouldLoadMore && await searchStore.search(keyword.value, page.value + 1)
+
+  shouldLoadMore && await searchStore.search(
+    keyword.value,
+    searchStore.searchRegistry === 'algolia'
+      ? page.value + 1
+      // from x to x + 10
+      : page.value + 10,
+  )
 
   cursorOffset.value = Math.max(0, Math.min(packages.value.length - 1, value))
 }
 
 onKeyData(['ArrowLeft', 'ArrowRight'], async (event) => {
+  // the npm registry is not currently supported.
+  if (searchStore.searchRegistry === 'npm')
+    return
   const offset = event.key === 'ArrowLeft' ? -1 : 1
   columnIndex.value = Math.max(0, Math.min(1, columnIndex.value + offset))
 })

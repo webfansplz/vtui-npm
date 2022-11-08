@@ -1,10 +1,16 @@
 <script lang="ts" setup>
 import type { KeyDataEvent } from 'vue-termui'
+import { useSearchStore } from './store'
 import Header from '@/components/Header.vue'
 import InputBox from '@/components/InputBox.vue'
 import Package from '@/components/Package.vue'
 import Deps from '@/components/Deps.vue'
 import Download from '@/components/Download.vue'
+const { toggleRegistry } = useSearchStore()
+
+// toggle search registry (algolia by default)
+if (process.argv.includes('-n') || process.argv.includes('--npm'))
+  toggleRegistry('npm')
 
 // Exit the process manually when press ctrl + c
 const stop = onInputData((e) => {

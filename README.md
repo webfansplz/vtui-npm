@@ -38,6 +38,13 @@ Open the terminal and then typing `vnpm`.
 vnpm
 ```
 
+```sh
+# Switch to npm registry for search (algolia by default),we recommend using the algolia search.
+vnpm -n | vnpm --npm
+```
+
+
+
 ## 💗 Credits
 
 - Search powered by [Algolia](https://github.com/algolia/algoliasearch-client-javascript).
