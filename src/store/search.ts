@@ -37,8 +37,11 @@ export const useSearchStore = defineStore('search', () => {
       packages.value = []
       return
     }
-    const { query, hits } = await algoliaSearch(k, p)
-    query === keyword.value && normalizePackages(hits)
+    const res = await algoliaSearch(k, p).catch((e) => {
+      console.log(e)
+      process.exit(1)
+    })
+    res.query === keyword.value && normalizePackages(res.hits)
   }
 
   watch(keyword, () => {
