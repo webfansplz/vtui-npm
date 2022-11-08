@@ -20,7 +20,7 @@
       ]
     },
     "types": [
-      "vite/client",
+      "vite/client"
     ]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "*.d.ts"],

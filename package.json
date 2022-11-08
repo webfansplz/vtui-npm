@@ -28,6 +28,8 @@
   "scripts": {
     "dev": "vtui dev",
     "build": "vtui build",
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx,.md,.json --max-warnings 0 --cache",
+    "lint:fix": "pnpm run lint --fix",
     "release": "pnpm run build && npm publish"
   },
   "dependencies": {
