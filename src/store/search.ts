@@ -40,8 +40,7 @@ export const useSearchStore = defineStore('search', () => {
     const res = await algoliaSearch(k, p).catch((e) => {
       setTimeout(() => {
         console.log(e)
-        process.exit(1)
-      }, 1000)
+      }, 2000)
       return { query: null, hits: [] }
     })
     res.query === keyword.value && normalizePackages(res.hits)

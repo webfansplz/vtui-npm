@@ -1,7 +1,7 @@
 {
   "name": "vtui-npm",
   "type": "module",
-  "version": "0.0.1-beta.17",
+  "version": "0.0.1-beta.20",
   "packageManager": "pnpm@7.9.0",
   "description": "Interactive CLI for npm - search and install JavaScript package.",
   "author": "webfansplz",
