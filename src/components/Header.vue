@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { useSearchStore } from '@/store'
+
+const { packSource } = useSearchStore()
 </script>
 
 <template>
@@ -7,7 +10,7 @@
     justifyContent="center"
   >
     <Span color="yellow">
-      VTUI NPM
+      VTUI NPM SEARCH FROM {{ packSource }}
     </Span>
   </Div>
 </template>

@@ -1,6 +1,7 @@
 import { ref } from '@vue/runtime-core'
 import { defineStore } from 'pinia'
 import { search as algoliaSearch } from '@/services/algolia'
+import { search as npmSearch } from '@/services/npm-registry'
 import type { PackageInfo } from '@/services/algolia'
 
 interface DepsInfo {
@@ -12,6 +13,7 @@ export const useSearchStore = defineStore('search', () => {
   const page = ref(0)
   const keyword = ref('')
   const packages = ref<PackageInfo[]>([])
+  const packSource = ref<'Algolia' | 'NPM'>('Algolia')
 
   function normalizePackages(data: PackageInfo[]) {
     const value = data.map((item) => {
@@ -37,15 +39,21 @@ export const useSearchStore = defineStore('search', () => {
       packages.value = []
       return
     }
-    const { query, hits } = await algoliaSearch(k, p)
-    query === keyword.value && normalizePackages(hits)
+    if (packSource.value === 'Algolia') {
+      const { query, hits } = await algoliaSearch(k, p)
+      query === keyword.value && normalizePackages(hits)
+    }
+    else if (packSource.value === 'NPM') {
+      const { query, data } = await npmSearch(k, p)
+      query === keyword.value && normalizePackages(data)
+    }
   }
 
   watch(keyword, () => {
     search(keyword.value)
   })
 
-  return { keyword, packages, page, search }
+  return { keyword, packages, page, search, packSource }
 })
 
 export const useDepsStore = defineStore('deps', () => {
