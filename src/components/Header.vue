@@ -1,6 +1,3 @@
-<script lang="ts" setup>
-</script>
-
 <template>
   <Div
     width="100"

@@ -49,7 +49,7 @@ export const search = async (
   controller?.abort()
   controller = new AbortController()
   const signal = controller.signal
-  const res = await $fetch(`http://registry.npmjs.com/-/v1/search?text=${query}&from=${page}`, { signal }).catch((e) => {
+  const res = await $fetch(`http://registry.npmjs.com/-/v1/search?text=${query}&from=${page}`, { signal }).catch(() => {
     return { count: 0 }
   })
   if (res.count <= 0)
