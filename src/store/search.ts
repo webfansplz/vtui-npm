@@ -10,29 +10,30 @@ interface DepsInfo {
   version: string
 }
 
+// for algolia registry
+function normalizePackages(data: PackageInfo[]) {
+  const value = data.map((item) => {
+    const versions = item.versions as unknown as Record<string, string>
+    const normalizedVersions = Object.keys(versions).sort((a, b) => new Date(versions[b]).getTime() - new Date(versions[a]).getTime())
+    return {
+      ...item,
+      downloads: item.humanDownloadsLast30Days,
+      author: item.owner.name,
+      versions: [...new Set([item.version, ...normalizedVersions])],
+      versionIndex: 0,
+      activeVersion: item.version,
+      repoLink: item.repository?.url,
+      authorLink: item.owner?.link,
+    }
+  })
+  return value
+}
+
 export const useSearchStore = defineStore('search', () => {
   const page = ref(0)
   const keyword = ref('')
   const packages = ref<PackageInfo[]>([])
-  const packSource = ref<'Algolia' | 'NPM'>('Algolia')
-
-  function normalizePackages(data: PackageInfo[]) {
-    const value = data.map((item) => {
-      const versions = item.versions as unknown as Record<string, string>
-      const normalizedVersions = Object.keys(versions).sort((a, b) => new Date(versions[b]).getTime() - new Date(versions[a]).getTime())
-      return {
-        ...item,
-        downloads: item.humanDownloadsLast30Days,
-        author: item.owner.name,
-        versions: [...new Set([item.version, ...normalizedVersions])],
-        versionIndex: 0,
-        activeVersion: item.version,
-        repoLink: item.repository?.url,
-        authorLink: item.owner?.link,
-      }
-    })
-    packages.value = page.value === 0 ? value : [...packages.value, ...value]
-  }
+  const searchRegistry = ref<'algolia' | 'npm'>('algolia')
 
   function normalizeNpmPackages(data: NpmPackageInfo[]) {
     const value = data.map(({ package: item }) => {
@@ -56,7 +57,7 @@ export const useSearchStore = defineStore('search', () => {
         },
       }
     }) as PackageInfo[]
-    packages.value = page.value === 0 ? value : [...packages.value, ...value]
+    return value
   }
 
   async function search(k: string, p = 0) {
@@ -65,25 +66,38 @@ export const useSearchStore = defineStore('search', () => {
       packages.value = []
       return
     }
-    if (packSource.value === 'Algolia') {
-      const { query, hits } = await algoliaSearch(k, p)
-      query === keyword.value && normalizePackages(hits)
-    }
-    else if (packSource.value === 'NPM') {
-      const { query, data } = await npmSearch(k, p)
-      query === keyword.value && normalizeNpmPackages(data)
+    const request = {
+      algolia: algoliaSearch,
+      npm: npmSearch,
+    }[searchRegistry.value]
+
+    const normalize = {
+      algolia: normalizePackages,
+      npm: normalizeNpmPackages,
+    }[searchRegistry.value]
+
+    const result = await request(k, p).catch((e) => {
+      setTimeout(() => {
+        console.log(e)
+      }, 2000)
+      return { query: null, hits: [] }
+    })
+
+    if (result.query === keyword.value) {
+      const normalizedResult = normalize(result.hits)
+      packages.value = page.value === 0 ? normalizedResult : [...packages.value, ...normalizedResult]
     }
   }
 
-  function changeSource(source: 'Algolia' | 'NPM') {
-    packSource.value = source
+  function toggleRegistry(source: 'algolia' | 'npm') {
+    searchRegistry.value = source
   }
 
   watch(keyword, () => {
     search(keyword.value)
   })
 
-  return { keyword, packages, page, search, packSource, changeSource }
+  return { keyword, packages, page, search, searchRegistry, toggleRegistry }
 })
 
 export const useDepsStore = defineStore('deps', () => {
