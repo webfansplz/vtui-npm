@@ -29,36 +29,37 @@ function normalizePackages(data: PackageInfo[]) {
   return value
 }
 
+// for npm registry
+function normalizeNpmPackages(data: NpmPackageInfo[]) {
+  const value = data.map(({ package: item }) => {
+    return {
+      ...item,
+      downloads: '---',
+      humanDownloadsLast30Days: '',
+      descriptions: item.description,
+      author: item.author?.name ?? '',
+      versions: [item.version],
+      versionIndex: 0,
+      activeVersion: item.version,
+      repoLink: item.links?.repository,
+      authorLink: item.author?.url,
+      owner: {
+        link: item.author?.url,
+        name: item.author?.name,
+      },
+      repository: {
+        url: item.links?.repository,
+      },
+    }
+  }) as PackageInfo[]
+  return value
+}
+
 export const useSearchStore = defineStore('search', () => {
   const page = ref(0)
   const keyword = ref('')
   const packages = ref<PackageInfo[]>([])
   const searchRegistry = ref<'algolia' | 'npm'>('algolia')
-
-  function normalizeNpmPackages(data: NpmPackageInfo[]) {
-    const value = data.map(({ package: item }) => {
-      return {
-        ...item,
-        downloads: '',
-        humanDownloadsLast30Days: '',
-        descriptions: item.description,
-        author: item.author?.name,
-        versions: [item.version],
-        versionIndex: 0,
-        activeVersion: item.version,
-        repoLink: item.links?.repository,
-        authorLink: item.author?.url,
-        owner: {
-          link: item.author?.url,
-          name: item.author?.name,
-        },
-        repository: {
-          url: item.links?.repository,
-        },
-      }
-    }) as PackageInfo[]
-    return value
-  }
 
   async function search(k: string, p = 0) {
     page.value = p
