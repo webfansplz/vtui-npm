@@ -77,13 +77,6 @@ export const useSearchStore = defineStore('search', () => {
 
   function changeSource(source: 'Algolia' | 'NPM') {
     packSource.value = source
-    const res = await algoliaSearch(k, p).catch((e) => {
-      setTimeout(() => {
-        console.log(e)
-      }, 2000)
-      return { query: null, hits: [] }
-    })
-    res.query === keyword.value && normalizePackages(res.hits)
   }
 
   watch(keyword, () => {
