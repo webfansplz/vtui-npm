@@ -1,7 +1,7 @@
 {
   "name": "vtui-npm",
   "type": "module",
-  "version": "0.0.1-beta.22",
+  "version": "0.0.1",
   "packageManager": "pnpm@7.9.0",
   "description": "Interactive CLI for npm - search and install JavaScript package.",
   "author": "webfansplz",
@@ -33,7 +33,7 @@
     "release": "pnpm run build && npm publish"
   },
   "dependencies": {
-    "@algolia/requester-fetch": "^4.14.2",
+    "@algolia/requester-node-http": "^4.14.2",
     "@antfu/ni": "^0.18.3",
     "@vue/runtime-core": "^3.2.41",
     "algoliasearch": "^4.14.2",

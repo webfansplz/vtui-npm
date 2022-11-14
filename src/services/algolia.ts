@@ -1,5 +1,5 @@
 import algoliasearch from 'algoliasearch'
-import { createFetchRequester } from '@algolia/requester-fetch'
+import { createNodeHttpRequester } from '@algolia/requester-node-http'
 
 export interface PackageInfo {
   name: string
@@ -30,7 +30,7 @@ const algolia = {
 }
 
 const client = algoliasearch(algolia.appId, algolia.apiKey, {
-  requester: createFetchRequester(),
+  requester: createNodeHttpRequester(),
 }).initIndex(
   algolia.indexName,
 )

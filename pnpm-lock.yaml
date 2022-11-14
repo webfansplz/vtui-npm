@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@algolia/requester-fetch': ^4.14.2
+  '@algolia/requester-node-http': ^4.14.2
   '@antfu/eslint-config': ^0.29.3
   '@antfu/ni': ^0.18.3
   '@types/node': ^18.11.9
@@ -24,6 +25,7 @@ specifiers:
 
 dependencies:
   '@algolia/requester-fetch': 4.14.2
+  '@algolia/requester-node-http': 4.14.2
   '@antfu/ni': 0.18.3
   '@vue/runtime-core': 3.2.41
   algoliasearch: 4.14.2
